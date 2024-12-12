@@ -1,0 +1,25 @@
+services:
+  backend:
+    image: node:20
+    container_name: server
+    working_dir: /src/app
+    volumes:
+      - ./backend:/src/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+    command: npm run dev
+  mongo:
+    image: mongo:latest
+    container_name: mongoDB
+    ports:
+      - 7017:27017
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_URI
+volumes:
+  mongo_data:
+  
