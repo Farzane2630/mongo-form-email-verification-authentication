@@ -3,7 +3,7 @@ const { emailClient, sender } = require("./mailtrap.config");
 
 const sendVerificationEmail = async (email, verificationToken) => {
   const recipient = [{ email }];
-
+  
   try {
     const response = await emailClient.send({
       from: sender,
@@ -15,6 +15,9 @@ const sendVerificationEmail = async (email, verificationToken) => {
       ),
       category: "Email Verification",
     });
+
+    console.log(verificationToken);
+    
 
     console.log("Email sent successfully", response);
   } catch (error) {

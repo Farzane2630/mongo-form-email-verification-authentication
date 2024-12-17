@@ -44,7 +44,7 @@ const register = async (req, res) => {
     //jwt
     generateTokenAndSetCookie(res, newUser._id);
 
-    await sendVerificationEmail(newUser.email, verificationToken);
+    // await sendVerificationEmail(newUser.email, verificationToken);
 
     res.status(201).json({
       success: true,
@@ -59,11 +59,95 @@ const register = async (req, res) => {
   }
 };
 
+const verifyEmail = async (req, res) => {
+  const { code } = req.body;
+
+  try {
+    const user = await User.findOne({
+      verificationToken: code,
+      verificationTokenExpiresAt: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid incredentials." });
+    }
+
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationTokenExpiresAt = undefined;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Email verified successfully",
+      user: {
+        ...user._doc,
+        password: undefined,
+      },
+    });
+  } catch (error) {
+    console.log("error verifying email:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
+};
+
 const login = async (req, res) => {
-  res.send("login");
+  // 1. get email and password from client
+  const { email, password } = req.body;
+  try {
+    // 2. check if email is registered
+    const user = await User.findOne({ email });
+
+    // 3. send error if user does not exist
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid incredentials." });
+    }
+
+    //4. check password match
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    // 5. if password does not match send error
+    if (!isPasswordMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid incredentials." });
+    }
+
+    // 6. generate token and cookie
+    generateTokenAndSetCookie(res, user._id);
+
+    // 7. update last login date
+
+    user.lastLogin = new Date();
+
+    // 8. save user in db
+    await user.save();
+
+    // 9. return a response
+    res.status(200).json({
+      success: true,
+      message: "user successfully loged in ;)",
+      user: {
+        ...user._doc,
+        password: undefined,
+      },
+    });
+  } catch (error) {
+    console.log("error logging in:", error); // This is for debug purpos, don`t delete it miss. DELETYYYYY
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
 };
 const logout = async (req, res) => {
   res.send("logout");
 };
 
-module.exports = { login, register, logout };
+module.exports = { login, register, logout, verifyEmail };
