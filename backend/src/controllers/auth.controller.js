@@ -1,11 +1,15 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
+const { User } = require("../models/user.model");
 const {
   generateTokenAndSetCookie,
 } = require("../utils/generateTokenAndSetCookie");
-const { sendVerificationEmail, sendPasswordResetEmail } = require("../../mailSender/emails");
-const { User } = require("../models/user.model");
+const {
+  sendVerificationEmail,
+  sendPasswordResetEmail,
+  sendSuccessfullyResetPasword,
+} = require("../../mailSender/emails");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -161,18 +165,61 @@ const forgotPassword = async (req, res) => {
     }
 
     const resetToken = crypto.randomBytes(20).toString("hex");
-    const resetPasswordExpiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
+    const resetPasswordExpiresAt = Date.now() + 1 * 60 * 60 * 1000; // 1 hour
 
-    user.resetToken = resetToken;
+    user.resetPasswordToken = resetToken;
     user.resetPasswordExpiresAt = resetPasswordExpiresAt;
     await user.save();
 
-    await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`)
+    await sendPasswordResetEmail(
+      user.email,
+      `${process.env.CLIENT_URL}/reset-password/${resetToken}`
+    );
 
-    res.status(200).json({success: true, message: "Password rest token sent successfully"})
-
+    res.status(200).json({
+      success: true,
+      message: "Password rest token sent successfully",
+    });
   } catch (error) {
     console.log("error forgot password:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  console.log(token);
+
+  try {
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpiresAt: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired token!" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpiresAt = undefined;
+
+    await user.save();
+
+    await sendSuccessfullyResetPasword(user.email);
+    res
+      .status(200)
+      .json({ success: true, message: "Password reset successfully!" });
+  } catch (error) {
+    console.log("error verifying email:", error);
     return res
       .status(500)
       .json({ success: false, message: "something went wrong!" });
@@ -183,4 +230,11 @@ const logout = async (req, res) => {
   res.send("logout");
 };
 
-module.exports = { login, register, logout, verifyEmail, forgotPassword };
+module.exports = {
+  login,
+  register,
+  logout,
+  verifyEmail,
+  forgotPassword,
+  resetPassword,
+};
