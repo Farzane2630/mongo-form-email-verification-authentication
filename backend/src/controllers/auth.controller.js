@@ -1,9 +1,11 @@
-const { User } = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
+
 const {
   generateTokenAndSetCookie,
 } = require("../utils/generateTokenAndSetCookie");
-const { sendVerificationEmail } = require("../../mailtrap/emails");
+const { sendVerificationEmail, sendPasswordResetEmail } = require("../../mailSender/emails");
+const { User } = require("../models/user.model");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -44,7 +46,7 @@ const register = async (req, res) => {
     //jwt
     generateTokenAndSetCookie(res, newUser._id);
 
-    // await sendVerificationEmail(newUser.email, verificationToken);
+    await sendVerificationEmail(newUser.email, verificationToken);
 
     res.status(201).json({
       success: true,
@@ -146,8 +148,39 @@ const login = async (req, res) => {
       .json({ success: false, message: "something went wrong!" });
   }
 };
+
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found!" });
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    const resetPasswordExpiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
+
+    user.resetToken = resetToken;
+    user.resetPasswordExpiresAt = resetPasswordExpiresAt;
+    await user.save();
+
+    await sendPasswordResetEmail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`)
+
+    res.status(200).json({success: true, message: "Password rest token sent successfully"})
+
+  } catch (error) {
+    console.log("error forgot password:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
+};
+
 const logout = async (req, res) => {
   res.send("logout");
 };
 
-module.exports = { login, register, logout, verifyEmail };
+module.exports = { login, register, logout, verifyEmail, forgotPassword };
