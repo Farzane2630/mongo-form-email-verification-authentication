@@ -1,12 +1,16 @@
 const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser")
+
 const connectToDB = require("./utils/db");
 const authRoutes = require("./routes/auth.route");
-const cors = require("cors");
+
 const app = express();
 
 // Set Middlewares
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(cookieParser())
 
 // Port
 const port = process.env.PORT || 5000;

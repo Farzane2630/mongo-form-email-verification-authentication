@@ -226,7 +226,32 @@ const resetPassword = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.send("logout");
+  res.clearCookie("token");
+  res
+    .status(200)
+    .json({ success: true, message: "User loged out successfully." });
+};
+
+const checkAuth = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid incredentials." });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "user is authenticated ;)",
+      user,
+    });
+  } catch (error) {
+    console.log("error in checkAuth:", error); 
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
 };
 
 module.exports = {
@@ -236,4 +261,5 @@ module.exports = {
   verifyEmail,
   forgotPassword,
   resetPassword,
+  checkAuth
 };
