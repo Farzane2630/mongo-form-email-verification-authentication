@@ -12,7 +12,7 @@ const {
 } = require("../../mailSender/emails");
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, mobile } = req.body;
 
   try {
     // check for required fields
@@ -40,6 +40,7 @@ const register = async (req, res) => {
     const newUser = new User({
       name,
       email,
+      mobile,
       password: hashedPassword,
       verificationToken,
       verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
@@ -191,8 +192,6 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
-
-  console.log(token);
 
   try {
     const user = await User.findOne({

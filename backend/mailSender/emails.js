@@ -40,7 +40,7 @@ const sendPasswordResetEmail = async (email, resetURL) => {
 
     transporter.sendMail(mailOptions, (error) => {
       if (error) throw Error(error);
-      console.log("Done!");
+      console.log("Email sent successfully ;) ");
     });
   } catch (error) {
     console.error("Error sending reset link:", error);
@@ -58,11 +58,14 @@ const sendSuccessfullyResetPasword = async (email) => {
 
     transporter.sendMail(mailOptions, (error) => {
       if (error) throw Error(error);
-      console.log("success!!!!!");
+      console.log("Email sent successfully ;) ");
     });
   } catch (error) {
     console.error("Error sending reset link:", error);
-
   }
 };
-module.exports = { sendVerificationEmail, sendPasswordResetEmail, sendSuccessfullyResetPasword };
+module.exports = {
+  sendVerificationEmail,
+  sendPasswordResetEmail,
+  sendSuccessfullyResetPasword,
+};
