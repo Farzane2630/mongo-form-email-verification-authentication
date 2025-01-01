@@ -128,10 +128,13 @@ const login = async (req, res) => {
     }
 
     // 6. generate token and cookie
-    generateTokenAndSetCookie(res, user._id);
+    const token = await generateTokenAndSetCookie(res, user._id);
+    console.log(token);
+    
 
     // 7. update last login date
 
+    user.token = token
     user.lastLogin = new Date();
 
     // 8. save user in db
@@ -174,12 +177,12 @@ const forgotPassword = async (req, res) => {
 
     await sendPasswordResetEmail(
       user.email,
-      `${process.env.CLIENT_URL}/reset-password/${resetToken}`
+      `${process.env.CLIENT_URL}/auth/reset-password/${resetToken}`
     );
 
     res.status(200).json({
       success: true,
-      message: "Password rest token sent successfully",
+      message: "Password reset token sent successfully",
     });
   } catch (error) {
     console.log("error forgot password:", error);
@@ -234,7 +237,7 @@ const logout = async (req, res) => {
 
 const checkAuth = async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select("-password");
+    const user = await User.findById(req.userId).select("-password"); // not include password
     if (!user) {
       return res
         .status(400)
