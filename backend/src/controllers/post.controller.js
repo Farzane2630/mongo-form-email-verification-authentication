@@ -33,7 +33,7 @@ const getPosts = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 const getPost = async (req, res) => {
   const postId = req.params.postId;
@@ -46,6 +46,50 @@ const getPost = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
-}
+};
 
-module.exports = { createPost , getPosts, getPost};
+const deletePost = async (req, res) => {
+  const postId = req.params.postId;
+  try {
+    // const user = await User.findById(req.userId).select("-password");
+    // if (!user) {
+    //   throw new Error("unauthorized access");
+    // }
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    await post.deleteOne();
+
+    res.status(200).json({ success: true, message: "Post deleted" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+const editPost = async (req, res) => {
+  const postId = req.params.postId;
+  const { title, category, body, image } = req.body;
+  const post = await Post.findById(postId);
+  if (!post) {
+    throw new Error("Post not found");
+  }
+  try {
+    post.title = title;
+    post.category = category;
+    post.body = body;
+    post.image = image;
+    post.lastUpdate = Date.now();
+    // console.log(post);
+    await post.save();
+
+    res.status(200).json({ success: true, post });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createPost, getPosts, getPost, deletePost, editPost };
