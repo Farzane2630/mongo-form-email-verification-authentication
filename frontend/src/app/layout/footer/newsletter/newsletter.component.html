@@ -1,0 +1,36 @@
+<p class="font-semibold text-lg mb-4">SUBSCRIBE</p>
+
+<form
+  class="flex flex-col"
+  [formGroup]="newSubscriber"
+  (ngSubmit)="subscribe()"
+>
+  @if (
+    newSubscriber.controls["email"].invalid &&
+    newSubscriber.controls["email"].touched
+  ) {
+    <div class="w-[260px] text-red-500 font-semibold text-sm text-center">
+      @if (newSubscriber.controls["email"].hasError("required")) {
+        <span>Email Field is empty!</span>
+      } @else if (newSubscriber.controls["email"].hasError("email")) {
+        <span>Email format is Incorrect!</span>
+      } @else if (newSubscriber.controls["email"].hasError("minlength")) {
+        <span>Email must be atleast 6 character lang</span>
+      }
+    </div>
+  }
+  <input
+    formControlName="email"
+    type="text"
+    placeholder="Email address"
+    class="min-w-[180px] w-[260px] max-w-full border border-solid border-gray-500 text-gray-800 bg-transparent font-normal text-lg rounded-full px-4 py-4"
+  />
+  <button
+    type="submit"
+    [disabled]="newSubscriber.invalid"
+    class="min-w-[180px] w-[260px] max-w-full text-white bg-blue-500 hover:bg-blue-400 font-medium text-lg rounded-full px-4 py-4 cursor-pointer mt-4"
+    [style.backgroundColor]="newSubscriber.invalid? '#60a5fa': '#3b82f6'"
+  >
+    Subscribe now
+  </button>
+</form>

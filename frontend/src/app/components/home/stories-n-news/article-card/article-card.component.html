@@ -1,0 +1,30 @@
+<div
+id="article-card"
+class="p-4 md:p-2 rounded-lg flex items-center justify-between border border-solid border-gray-300 bg-blue-200 text-black"
+>
+<a href="">
+    <div class="flex items-center justify-start">
+      <div class="w-[80px] h-[80px] relative">
+        <img
+          [ngSrc]="article.img_src"
+          alt="holiday article"
+          fill
+          class="rounded"
+        />
+      </div>
+      <div id="details" class="ms-4">
+        <p id="category" class="font-semibold">{{ article.category }}</p>
+        <p id="title" class="max-h-[30px] overflow-hidden text-xl font-bold">
+          {{ article.title }}
+        </p>
+        <p class="font-normal">
+          <span id="date">{{ article.publish_date | date }}. </span>
+          <span id="reading-time">{{ article.reading_time }} min read</span>
+        </p>
+      </div>
+    </div>
+   </a>
+    <button id="save-icon" (click)="saveBtnHandler(article.id)">
+      <i [class]="!isPicked ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"></i>
+    </button>
+  </div>

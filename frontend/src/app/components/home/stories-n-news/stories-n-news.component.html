@@ -1,0 +1,27 @@
+<section id="stories-n-news" class="mx-14 my-16">
+  <p class="text-3xl font-light text-blue-500 mb-6">TRAVEL STORIES AND NEWS</p>
+  <div class="flex justify-between items-start">
+    <p id="title" class="text-4xl font-bold text-black">
+      Explore our latest stories
+    </p>
+
+    <div class="gap-4 hidden md:flex">
+      <app-sample-btn title="Read more news"></app-sample-btn>
+      <app-sample-btn title="Read more articles"></app-sample-btn>
+    </div>
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-x-4">
+    <app-best-story></app-best-story>
+    <div id="articles" class="mt-8 flex flex-col gap-2 md:w-full">
+      @for (article of articles; track article.id) {
+        <app-article-card [article]="article"></app-article-card>
+      }
+    </div>
+  </div>
+
+  <div class="gap-4 md:hidden flex justify-center my-8">
+    <app-sample-btn title="Read more news"></app-sample-btn>
+    <app-sample-btn title="Read more articles"></app-sample-btn>
+  </div>
+</section>

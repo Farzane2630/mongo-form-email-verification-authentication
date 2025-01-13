@@ -1,0 +1,113 @@
+<div class="register">
+  <img src="images/login-bg.png" alt="image" class="register__bg" />
+
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="register()"
+    class="register__form"
+  >
+    <a routerLink="/" class="w-full flex justify-center mb-4">
+      <app-logo />
+    </a>
+
+    <h1 class="register__title">Register</h1>
+
+    <div class="register__inputs">
+      <div class="register__box">
+        <input
+          formControlName="name"
+          type="text"
+          placeholder="Name"
+          class="register__input"
+        />
+        <i class="fa-solid fa-user"></i>
+      </div>
+      @if (
+        registerForm.controls["name"].invalid &&
+        registerForm.controls["name"].touched
+      ) {
+        @if (registerForm.controls["name"].hasError("required")) {
+          <span>Name is Required</span>
+        } @else if (registerForm.controls["name"].hasError("minlength")) {
+          <span>Name must be atleast 4 charactors long. </span>
+        }
+      }
+
+      <div class="register__box">
+        <input
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+          class="register__input"
+        />
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+      @if (
+        registerForm.controls["email"].invalid &&
+        registerForm.controls["email"].touched
+      ) {
+        @if (registerForm.controls["email"].hasError("required")) {
+          <span>Email is Required</span>
+        } @else if (registerForm.controls["email"].hasError("email")) {
+          <span>Email format is incorrect. </span>
+        }
+      }
+
+      <div class="register__box">
+        <input
+          formControlName="mobile"
+          type="text"
+          placeholder="Mobile"
+          class="register__input"
+        />
+        <i class="fa-solid fa-phone"></i>
+      </div>
+      @if (
+        registerForm.controls["mobile"].invalid &&
+        registerForm.controls["mobile"].touched
+      ) {
+        @if (registerForm.controls["mobile"].hasError("required")) {
+          <span>Mobile is Required</span>
+        } @else if (registerForm.controls["mobile"].hasError("pattern")) {
+          <span>Mobile pattern is incorrect. </span>
+        }
+      }
+
+      <div class="register__box">
+        <input
+          formControlName="password"
+          type="password"
+          placeholder="Password"
+          class="register__input"
+        />
+        <i class="fa-solid fa-key"></i>
+      </div>
+    </div>
+    @if (
+      registerForm.controls["password"].invalid &&
+      registerForm.controls["password"].touched
+    ) {
+      @if (registerForm.controls["password"].hasError("required")) {
+        <span>Password is Required</span>
+      } @else if (registerForm.controls["password"].hasError("minlength")) {
+        <span>Password must be atleast 6 charactors long. </span>
+      }
+    }
+    <button
+      type="submit"
+      class="register__button"
+      [style]="registerForm.invalid ? 'opacity: 0.5' : ''"
+      [disabled]="registerForm.invalid"
+    >
+      @if (isLoading) {
+        loading ...
+      } @else {
+        Register
+      }
+    </button>
+
+    <div class="register__register">
+      Already have an account? <a routerLink="/auth/login">Login</a>
+    </div>
+  </form>
+</div>

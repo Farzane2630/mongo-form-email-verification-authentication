@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+body {
+  width: 100%;
+}
+
+.hover-text-blue:hover {
+  color: #3b82f6;
+  cursor: pointer;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+} /*# sourceMappingURL=styles.css.map */

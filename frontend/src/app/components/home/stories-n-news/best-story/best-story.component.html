@@ -1,0 +1,48 @@
+<section class="max-w-[600px]">
+  <div
+    class="rounded-xl relative flex h-[400px] w-full lg:h-[550] lg:w-[600px] justify-center items-center overflow-hidden px-10 pb-8 md:px-14 my-8"
+  >
+  <a href="">
+    <img ngSrc="images/best-story.jpg" alt="Best Story" fill />
+  </a>
+    @if (!isMobile()) {
+      <div class="absolute inset-0 bg-black opacity-30"></div>
+      <div
+        class="relative flex w-full h-full flex-col items-start justify-end text-white"
+      >
+        <p id="category" class="font-bold">TIPS & ADVICE</p>
+        <p id="tit" class="text-xl font-extrabold">
+          The best places to visit in February 2025
+        </p>
+        <p class="font-normal">
+          <span id="date">Dec 26, 2024 . </span>
+          <span id="reading-time">5 min read</span>
+        </p>
+        <p id="summary" class="font-normal">
+          Where you need a post-holiday rest on the beach or a high-octane jump
+          start to 2025, we have the perfect destination for your February
+          vacation.
+        </p>
+      </div>
+    }
+  </div>
+  @if (isMobile()) {
+    <div
+      class="relative flex w-full h-full flex-col items-start justify-end text-black"
+    >
+      <p id="category" class="font-bold">TIPS & ADVICE</p>
+      <p id="tit" class="text-xl font-extrabold">
+        The best places to visit in February 2025
+      </p>
+      <p class="font-normal">
+        <span id="date">Dec 26, 2024 . </span>
+        <span id="reading-time">5 min read</span>
+      </p>
+      <p id="summary" class="font-normal">
+        Where you need a post-holiday rest on the beach or a high-octane jump
+        start to 2025, we have the perfect destination for your February
+        vacation.
+      </p>
+    </div>
+  }
+</section>

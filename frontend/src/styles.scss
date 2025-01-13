@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/regular.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/solid.css";
+@import "../node_modules/@fortawesome/fontawesome-free/css/brands.css";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.hover-text-blue, p > a{
+  &:hover {
+    color: #3b82f6;
+    cursor: pointer;
+  }
+}
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

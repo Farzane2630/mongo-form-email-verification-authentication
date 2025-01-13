@@ -1,0 +1,54 @@
+<section
+  class="flex flex-col md:flex-row justify-center items-start md:gap-x-8 gap-x-4 p-8"
+>
+  <div class="flex flex-col justify-center items-startpx-4 gap-4">
+    <div class="flex flex-col justify-start items-start gap-y-4">
+      <app-logo></app-logo>
+      <p class="max-w-[50%] flex flex-row flex-nowrap text-left">
+        For Explorers Everywhere
+      </p>
+    </div>
+
+    <app-follow-us></app-follow-us>
+    <app-newsletter></app-newsletter>
+    <app-policy></app-policy>
+  </div>
+  <div>
+    <p
+      class="font-semibold text-lg"
+      [style.cursor]="isMobile() ? 'pointer' : 'auto'"
+    >
+      Top destinations
+    </p>
+    <app-top-destinations></app-top-destinations>
+  </div>
+  <div>
+    <p
+      class="font-semibold text-lg"
+      [style.cursor]="isMobile() ? 'pointer' : 'auto'"
+    >
+      Travel Interests
+    </p>
+    <app-travel-interests></app-travel-interests>
+  </div>
+  <div>
+    <div class="md:mb-4 mb-0">
+      <p
+        class="font-semibold text-lg"
+        [style.cursor]="isMobile() ? 'pointer' : 'auto'"
+      >
+        Shop
+      </p>
+      <app-shop-links></app-shop-links>
+    </div>
+    <div class="mb-4">
+      <p
+        class="font-semibold text-lg"
+        [style.cursor]="isMobile() ? 'pointer' : 'auto'"
+      >
+        About Us
+      </p>
+      <app-about-us></app-about-us>
+    </div>
+  </div>
+</section>

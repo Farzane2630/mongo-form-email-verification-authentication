@@ -1,0 +1,9 @@
+@if (!isAuthRoute) {
+  <app-header />
+}
+
+<router-outlet />
+
+@if (!isAuthRoute) {
+  <app-footer />
+}

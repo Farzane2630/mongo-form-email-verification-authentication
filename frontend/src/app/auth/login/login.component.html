@@ -1,0 +1,74 @@
+<div class="login">
+  <img src="images/login-bg.png" alt="image" class="login__bg" />
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="login__form">
+    <a routerLink="/" class="w-full flex justify-center mb-4">
+      <app-logo />
+    </a>
+    <h1 class="login__title">Login</h1>
+
+    <div class="login__inputs">
+      <div class="login__box">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Email ID"
+          class="login__input"
+        />
+        <i class="fa-solid fa-envelope"></i>
+      </div>
+      @if (
+        loginForm.controls["email"].invalid &&
+        loginForm.controls["email"].touched
+      ) {
+        @if (loginForm.controls["email"].hasError("required")) {
+          <span> Email is required. </span>
+        }
+        @if (loginForm.controls["email"].hasError("email")) {
+          <span> Email format is not correct. </span>
+        }
+      }
+
+      <div class="login__box">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          class="login__input"
+        />
+        <i class="fa-solid fa-key"></i>
+      </div>
+    </div>
+    @if (
+      loginForm.controls["password"].invalid &&
+      loginForm.controls["password"].touched
+    ) {
+      @if (loginForm.controls["password"].hasError("required")) {
+        <span> Password is required. </span>
+      }
+      @if (loginForm.controls["password"].hasError("minlength")) {
+        <span> Password must be atleast 6 characters. </span>
+      }
+    }
+    <div class="login__check">
+      <div class="login__check-box">
+        <input type="checkbox" class="login__check-input" id="user-check" />
+        <label for="user-check" class="login__check-label">Remember me</label>
+      </div>
+
+      <a routerLink="/auth/forgot-password" class="login__forgot">Forgot Password?</a>
+    </div>
+
+    <button type="submit" class="login__button" [disabled]="loginForm.invalid">
+      @if (isLoading) {
+        loading ...
+      } @else {
+        Login
+      }
+    </button>
+
+    <div class="login__register">
+      Don't have an account? <a routerLink="/auth/register">Register</a>
+    </div>
+  </form>
+</div>
