@@ -2,12 +2,12 @@ const { Post } = require("../models/post.model");
 const { User } = require("../models/user.model");
 
 const createPost = async (req, res) => {
-  const { title, category, body, image } = req.body;
+  const { title, category, body, image, readingTime } = req.body;
   const user = await User.findById(req.userId).select("-password");
 
   try {
     // check for required fields
-    if (!title || !category || !body || !image) {
+    if (!title || !category || !body || !image || !readingTime) {
       throw new Error("All fields are required");
     }
     const newPost = new Post({
@@ -15,6 +15,7 @@ const createPost = async (req, res) => {
       category,
       body,
       image,
+      readingTime,
       author: user.name,
     });
 
@@ -51,11 +52,6 @@ const getPost = async (req, res) => {
 const deletePost = async (req, res) => {
   const postId = req.params.postId;
   try {
-    // const user = await User.findById(req.userId).select("-password");
-    // if (!user) {
-    //   throw new Error("unauthorized access");
-    // }
-
     const post = await Post.findById(postId);
 
     if (!post) {
@@ -72,7 +68,12 @@ const deletePost = async (req, res) => {
 
 const editPost = async (req, res) => {
   const postId = req.params.postId;
-  const { title, category, body, image } = req.body;
+  const { title, category, body, image, readingTime } = req.body;
+
+  if (!title || !category || !body || !image || !readingTime) {
+    throw new Error("All fields are required");
+  }
+
   const post = await Post.findById(postId);
   if (!post) {
     throw new Error("Post not found");
@@ -82,8 +83,9 @@ const editPost = async (req, res) => {
     post.category = category;
     post.body = body;
     post.image = image;
+    post.readingTime = readingTime;
     post.lastUpdate = Date.now();
-    // console.log(post);
+
     await post.save();
 
     res.status(200).json({ success: true, post });
