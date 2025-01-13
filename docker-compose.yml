@@ -20,6 +20,17 @@ services:
       - mongo_data:/data/db
     environment:
       - MONGO_URI
+  frontend:
+    image: node:20
+    depends_on:
+      - backend
+    container_name: client
+    working_dir: /src/app
+    command: "yarn start --host 0.0.0.0"
+    volumes:
+      - ./frontend:/src/app
+      - /app/node_modules
+    ports:
+      - 4200:4200
 volumes:
   mongo_data:
-  
