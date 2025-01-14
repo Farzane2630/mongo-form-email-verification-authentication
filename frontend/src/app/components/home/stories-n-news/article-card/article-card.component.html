@@ -1,12 +1,12 @@
 <div
-id="article-card"
-class="p-4 md:p-2 rounded-lg flex items-center justify-between border border-solid border-gray-300 bg-blue-200 text-black"
+  id="article-card"
+  class="p-4 md:p-2 rounded-lg flex items-center justify-between border border-solid border-gray-300 bg-blue-200 text-black"
 >
-<a href="">
+  <a href="">
     <div class="flex items-center justify-start">
       <div class="w-[80px] h-[80px] relative">
         <img
-          [ngSrc]="article.img_src"
+          [ngSrc]="article.image"
           alt="holiday article"
           fill
           class="rounded"
@@ -18,13 +18,13 @@ class="p-4 md:p-2 rounded-lg flex items-center justify-between border border-sol
           {{ article.title }}
         </p>
         <p class="font-normal">
-          <span id="date">{{ article.publish_date | date }}. </span>
-          <span id="reading-time">{{ article.reading_time }} min read</span>
+          <span id="date">{{ article.publishDate | date }}. </span>
+          <span id="reading-time">{{ article.readingTime }} min read</span>
         </p>
       </div>
     </div>
-   </a>
-    <button id="save-icon" (click)="saveBtnHandler(article.id)">
-      <i [class]="!isPicked ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"></i>
-    </button>
-  </div>
+  </a>
+  <button id="save-icon" (click)="saveBtnHandler(article._id)">
+    <i [class]="!isPicked ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"></i>
+  </button>
+</div>

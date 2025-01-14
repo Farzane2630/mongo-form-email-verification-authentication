@@ -1,12 +1,15 @@
 export interface Article {
-  id: number;
-  category: string;
+  _id: number;
   title: string;
-  sammary?: string;
-  content?: string;
-  publish_date: Date;
-  reading_time: number;
-  img_src: string;
+  body: string;
+  author: string;
+  image: string;
+  category: string;
+  publishDate: string;
+  lastUpdate: string;
+  comments: string[] | Comment[];
+  likes: number;
+  readingTime: string;
 }
 
 export interface User {
@@ -15,4 +18,23 @@ export interface User {
   email: string | null | undefined;
   mobile?: string | null | undefined;
   password: string | null | undefined;
+}
+
+export interface Comment {
+  id?: string | null | undefined;
+  articleId: string;
+  userId: string;
+  comment: string;
+  date: string;
+  likes: number;
+  replys: Reply[];
+}
+
+export interface Reply {
+  id?: string | null | undefined;
+  commentId: string;
+  userId: string;
+  reply: string;
+  date: string;
+  likes: number;
 }

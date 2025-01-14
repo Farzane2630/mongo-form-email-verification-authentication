@@ -1,8 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SampleBtnComponent } from "../../../shared/components/btns/sample-btn/sample-btn.component";
 import { BestStoryComponent } from "./best-story/best-story.component";
 import { ArticleCardComponent } from "./article-card/article-card.component";
 import { Article } from "../../../shared/Types";
+import { ArticleService } from "../../../shared/services/article.service";
+import { error } from "console";
 
 @Component({
   selector: "app-stories-n-news",
@@ -10,39 +12,18 @@ import { Article } from "../../../shared/Types";
   templateUrl: "./stories-n-news.component.html",
   // styleUrl: './stories-n-news.component.scss'
 })
-export class StoriesNNewsComponent {
-  articles: Article[] = [
-    {
-      id: 1,
-      category: "Travel guide",
-      title: " A first-time guide to Mallorca",
-      publish_date: new Date(),
-      reading_time: 10,
-      img_src: "images/article-1.jpg",
-    },
-    {
-      id: 2,
-      category: "Travel guide",
-      title: " A first-time guide to Mallorca",
-      publish_date: new Date(),
-      reading_time: 10,
-      img_src: "images/article-1.jpg",
-    },
-    {
-      id: 3,
-      category: "Travel guide",
-      title: " A first-time guide to Mallorca",
-      publish_date: new Date(),
-      reading_time: 10,
-      img_src: "images/article-1.jpg",
-    },
-    {
-      id: 4,
-      category: "Travel guide",
-      title: " A first-time guide to Mallorca",
-      publish_date: new Date(),
-      reading_time: 10,
-      img_src: "images/article-1.jpg",
-    }
-  ];
+export class StoriesNNewsComponent implements OnInit {
+  articles!: Article[] 
+
+  constructor(private articleService: ArticleService) {}
+
+  getPosts() {
+    this.articleService.getArticles(4).subscribe((res: any) => {
+      this.articles = res.posts;
+    })
+  }
+  ngOnInit(): void {
+    
+    this.getPosts();
+  }
 }

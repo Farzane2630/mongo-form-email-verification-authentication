@@ -14,7 +14,7 @@
   <div class="flex flex-col md:flex-row gap-x-4">
     <app-best-story></app-best-story>
     <div id="articles" class="mt-8 flex flex-col gap-2 md:w-full">
-      @for (article of articles; track article.id) {
+      @for (article of articles; track article._id) {
         <app-article-card [article]="article"></app-article-card>
       }
     </div>
