@@ -10,7 +10,7 @@ const {
   editPost,
 } = require("../controllers/post.controller");
 
-router.get("/", getPosts);
+router.get("/:limit", getPosts);
 router.get("/:postId", getPost);
 
 router.post("/new-post", verifyToken, createPost);

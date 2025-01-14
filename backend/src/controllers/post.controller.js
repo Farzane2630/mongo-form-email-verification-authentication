@@ -28,11 +28,12 @@ const createPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
+  const limit = parseInt(req.params.limit);
   try {
-    const posts = await Post.find().sort({ publishDate: -1 });
+    const posts = await Post.find().sort({ publishDate: -1 }).limit(limit);
     res.status(200).json({ success: true, posts });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
