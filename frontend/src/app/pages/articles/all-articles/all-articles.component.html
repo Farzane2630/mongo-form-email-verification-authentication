@@ -1,0 +1,10 @@
+<div id="main" class="flex flex-col items-center justify-start gap-y-4">
+  <p class="text-center font-extrabold text-lg text-blue-500">
+    Travel Articles
+  </p>
+  <div class="max-w-[1500px] flex flex-col items-stretch px-12 gap-y-4">
+    @for (article of articles; track article._id) {
+      <app-article-card [article]="article" />
+    }
+  </div>
+</div>

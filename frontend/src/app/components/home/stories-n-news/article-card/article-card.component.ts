@@ -2,11 +2,11 @@ import { DatePipe, NgOptimizedImage } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { Article } from "../../../../shared/Types";
 import { AuthService } from "../../../../auth/services/auth.service";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-article-card",
-  imports: [NgOptimizedImage, DatePipe],
+  imports: [NgOptimizedImage, DatePipe, RouterLink],
   templateUrl: "./article-card.component.html",
   // styleUrl: './article-card.component.scss'
 })

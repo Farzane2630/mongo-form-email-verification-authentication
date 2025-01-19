@@ -42,4 +42,11 @@ export const routes: Routes = [
     path: "auth/reset-password/:token",
     loadComponent:()=> import("./auth/reset-password/reset-password.component").then(mod => mod.ResetPasswordComponent)
   },
+  {
+    path: "articles",
+    loadComponent: () => import("./pages/articles/all-articles/all-articles.component").then(mod => mod.AllArticlesComponent)
+  },{
+    path: "articles/:_id",
+    loadComponent: () => import("./pages/articles/article/article.component").then(mod => mod.ArticleComponent)
+  }
 ];

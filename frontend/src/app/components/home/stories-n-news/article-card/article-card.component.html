@@ -1,10 +1,9 @@
 <div
   id="article-card"
-  class="p-4 md:p-2 rounded-lg flex items-center justify-between border border-solid border-gray-300 bg-blue-200 text-black"
+  class="p-4 md:p-2 rounded-lg flex items-stretch justify-between border border-solid border-gray-300 bg-blue-200 text-black"
 >
-  <a href="">
-    <div class="flex items-center justify-start">
-      <div class="w-[80px] h-[80px] relative">
+  <a [routerLink]="['/articles', article._id]" class="flex items-center justify-start">
+     <div class="w-[80px] h-[80px] relative">
         <img
           [ngSrc]="article.image"
           alt="holiday article"
@@ -22,7 +21,6 @@
           <span id="reading-time">{{ article.readingTime }} min read</span>
         </p>
       </div>
-    </div>
   </a>
   <button id="save-icon" (click)="saveBtnHandler(article._id)">
     <i [class]="!isPicked ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"></i>
