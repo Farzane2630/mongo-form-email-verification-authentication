@@ -44,6 +44,10 @@ const register = async (req, res) => {
       password: hashedPassword,
       verificationToken,
       verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
+
+      // temp - until edit profile developed
+      avatar:
+        "https://media.istockphoto.com/id/1471845315/de/foto/gl%C3%BCckliche-portr%C3%A4tierte-oder-gesch%C3%A4ftsfrau-macht-ein-selfie-im-b%C3%BCrogeb%C3%A4ude-f%C3%BCr-ein-social.webp?a=1&b=1&s=612x612&w=0&k=20&c=I0RDIK7pQSecu3jS7L2KvKxGNqQTyOxNCPZxFeXGhgQ=",
     });
 
     await newUser.save();
@@ -130,11 +134,10 @@ const login = async (req, res) => {
     // 6. generate token and cookie
     const token = await generateTokenAndSetCookie(res, user._id);
     console.log(token);
-    
 
     // 7. update last login date
 
-    user.token = token
+    user.token = token;
     user.lastLogin = new Date();
 
     // 8. save user in db
@@ -250,7 +253,7 @@ const checkAuth = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log("error in checkAuth:", error); 
+    console.log("error in checkAuth:", error);
     return res
       .status(500)
       .json({ success: false, message: "something went wrong!" });
@@ -264,5 +267,5 @@ module.exports = {
   verifyEmail,
   forgotPassword,
   resetPassword,
-  checkAuth
+  checkAuth,
 };
