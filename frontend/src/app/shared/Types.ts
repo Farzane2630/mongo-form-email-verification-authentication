@@ -18,6 +18,7 @@ export interface User {
   email: string | null | undefined;
   mobile?: string | null | undefined;
   password: string | null | undefined;
+  avatar?: string;
 }
 
 export interface Comment {

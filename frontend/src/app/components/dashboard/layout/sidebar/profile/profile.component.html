@@ -1,13 +1,17 @@
 <div class="flex flex-col justify-center items-center p-4 gap-y-4">
   <img
-    ngSrc="https://media.istockphoto.com/id/1471845315/de/foto/gl%C3%BCckliche-portr%C3%A4tierte-oder-gesch%C3%A4ftsfrau-macht-ein-selfie-im-b%C3%BCrogeb%C3%A4ude-f%C3%BCr-ein-social.webp?a=1&b=1&s=612x612&w=0&k=20&c=I0RDIK7pQSecu3jS7L2KvKxGNqQTyOxNCPZxFeXGhgQ="
+    [ngSrc]="
+      user.avatar ||
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhWdTnmHCBRfMu359x_TmhZRbvGSTS83quuw&s'
+    "
     width="100"
     height="100"
     class="rounded-full"
     alt="user-name"
+    loading="lazy"
   />
   <p class="text-lg font-bold text-gray-600">
-   {{user.name}}
-</p>
+    {{ user.name }}
+  </p>
   <div class="w-full border border-1 border-blue-400"></div>
 </div>

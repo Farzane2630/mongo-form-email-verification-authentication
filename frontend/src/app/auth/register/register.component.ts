@@ -51,6 +51,8 @@ export class RegisterComponent {
 
       this.authService.registerUser(userInfo).subscribe({
         next: (res) => {
+          // console.log(res.user);
+          
           alert(res.message);
           this.router.navigate(["/auth/verify-email"]);
           this.isLoading = false;
