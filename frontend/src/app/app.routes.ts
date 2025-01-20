@@ -36,17 +36,65 @@ export const routes: Routes = [
   },
   {
     path: "auth/forgot-password",
-    loadComponent:()=> import("./auth/forgot-password/forgot-password.component").then(mod => mod.ForgotPasswordComponent)
+    loadComponent: () =>
+      import("./auth/forgot-password/forgot-password.component").then(
+        (mod) => mod.ForgotPasswordComponent
+      ),
   },
   {
     path: "auth/reset-password/:token",
-    loadComponent:()=> import("./auth/reset-password/reset-password.component").then(mod => mod.ResetPasswordComponent)
+    loadComponent: () =>
+      import("./auth/reset-password/reset-password.component").then(
+        (mod) => mod.ResetPasswordComponent
+      ),
   },
   {
     path: "articles",
-    loadComponent: () => import("./pages/articles/all-articles/all-articles.component").then(mod => mod.AllArticlesComponent)
-  },{
+    loadComponent: () =>
+      import("./pages/articles/articles/articles.component").then(
+        (mod) => mod.ArticlesComponent
+      ),
+  },
+  {
     path: "articles/:_id",
-    loadComponent: () => import("./pages/articles/article/article.component").then(mod => mod.ArticleComponent)
-  }
+    loadComponent: () =>
+      import("./pages/articles/article/article.component").then(
+        (mod) => mod.ArticleComponent
+      ),
+  },
+  {
+    path: "dashboard",
+    loadComponent: () =>
+      import("./pages/dashboard/dashboard.component").then(
+        (mod) => mod.DashboardPageComponent
+      ),
+    children: [
+      {
+        path: "",
+        redirectTo: "blogs",
+        pathMatch: "full",
+      },
+      {
+        path: "blogs",
+        loadComponent: () =>
+          import("./pages/dashboard/blogs/blogs.component").then(
+            (mod) => mod.BlogsComponent
+          ),
+      },
+      {
+        path: "me",
+        loadComponent: () =>
+          import("./pages/dashboard/profile/profile.component").then(
+            (mod) => mod.ProfileComponent
+          ),
+      },
+      {
+        path: "saves",
+        loadComponent: () =>
+          import("./pages/dashboard/saves/saves.component").then(
+            (mod) => mod.SavesComponent
+          ),
+      },
+    ],
+  },
 ];

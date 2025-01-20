@@ -4,12 +4,12 @@ import { Article } from "../../../shared/Types";
 import { ArticleCardComponent } from "../../../components/home/stories-n-news/article-card/article-card.component";
 
 @Component({
-  selector: "app-all-articles",
+  selector: "app-articles",
   imports: [ArticleCardComponent],
-  templateUrl: "./all-articles.component.html",
+  templateUrl: "./articles.component.html",
   // styleUrl: "./all-articles.component.scss",
 })
-export class AllArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit {
   articles!: Article[];
   constructor(private articleService: ArticleService) {}
 

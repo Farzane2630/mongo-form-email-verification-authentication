@@ -46,6 +46,12 @@ export class AuthService {
     });
   }
 
+  getUser(): Observable<any> {
+    return this.http.get(`${this.api_url}/check-auth`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+  }
+
   logoutUser(): void {
     localStorage.removeItem("token");
   }

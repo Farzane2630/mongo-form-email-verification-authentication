@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { ResponsiveService } from "../../shared/services/responsive.service";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +11,9 @@ import { AuthService } from "../../auth/services/auth.service";
   templateUrl: "./header.component.html",
   // styleUrl: "./header.component.css",
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   menuIcon = faBars;
-  isLoggedIn : boolean = false;
+  isLoggedIn: boolean = false;
   responsiveService = inject(ResponsiveService);
 
   displayNav = computed(() => {
@@ -30,16 +30,21 @@ export class HeaderComponent {
     return true;
   });
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.authService.isUserLoggedIn();
   }
 
-    ngOnInit(): void {
-      this.isLoggedIn = this.authService.isUserLoggedIn();
+  saves(): void {
+    if (!this.authService.isUserLoggedIn()) {
+      alert("You must be logged in to view saved articles");
+      this.router.navigate(["/auth/login"]);
+    } else {
+      this.router.navigate(["/dashboard/saves"]);
     }
-
-    logout(): void {
-      this.authService.logoutUser();
-      alert("You have been logged out");
-      window.location.reload();
-    }
+  }
 }

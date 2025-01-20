@@ -16,7 +16,7 @@
         Search
       }
     </button>
-    <button id="saves" class="hover-text-blue font-bold">
+    <button id="saves" (click)="saves()" class="hover-text-blue font-bold">
       <i class="fa-regular fa-bookmark"></i>
       @if (hideActionTitles()) {
         Saves
@@ -24,9 +24,9 @@
     </button>
 
     @if (isLoggedIn) {
-      <!-- <a routerLink="/auth/logout"> -->
-        <i (click)="logout()" class="fa fa-user hover-text-blue"></i>
-      <!-- </a> -->
+      <a routerLink="/dashboard">
+        <i class="fa fa-user hover-text-blue"></i>
+      </a>
     } @else {
       <a routerLink="/auth/register">
         <button
