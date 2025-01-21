@@ -1,6 +1,9 @@
-<div id="main" class="flex gap-2 p-4">
-  <app-sidebar />
-  <div id="content" class="flex flex-1 border border-1 border-blue-400 rounded-lg">
-     <router-outlet />
+<div id="main" class="w-full flex gap-2 p-4">
+  <app-sidebar></app-sidebar>
+  <div
+    id="content"
+    class="flex flex-1 flex-grow justify-stretch items-stretch border border-1 border-blue-400 rounded-lg"
+  >
+    <router-outlet></router-outlet>
   </div>
 </div>

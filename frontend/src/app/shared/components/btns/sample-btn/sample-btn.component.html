@@ -1,5 +1,11 @@
- <button
-      class="rounded-full border border-solid border-gray-300 text-black font-bold text-sm px-8 py-4 hover-text-blue"
-    >
-      <a [routerLink]="route"> {{title}}</a>
-    </button>
+<button
+  class="rounded-full border border-solid border-gray-300 text-black font-bold text-sm px-8 py-4 hover-text-blue"
+  [class]="customClass"
+  (click)="onClick()"
+>
+  @if (hasRoute) {
+    <a [routerLink]="route"> {{ title }}</a>
+  } @else {
+    {{ title }}
+  }
+</button>

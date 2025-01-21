@@ -21,7 +21,7 @@ userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      required: true,
+      default: null,
     },
     lastLogin: {
       type: Date,

@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center items-center p-4 gap-y-4">
   <img
     [ngSrc]="
-      user.avatar ||
+      avatarUrl ||
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhWdTnmHCBRfMu359x_TmhZRbvGSTS83quuw&s'
     "
     width="100"
@@ -9,8 +9,6 @@
     class="rounded-full"
     alt="user-name"
     loading="lazy"
-    placeholder
-    [placeholderConfig]="{blur: false}"
   />
   <p class="text-lg font-bold text-gray-600">
     {{ user.name }}

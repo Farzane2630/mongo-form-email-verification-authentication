@@ -2,6 +2,7 @@ import { NgOptimizedImage } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { User } from "../../../../../shared/Types";
 import { AuthService } from "../../../../../auth/services/auth.service";
+import { environment } from "../../../../../../environments/environment";
 
 @Component({
   selector: "app-profile",
@@ -11,6 +12,8 @@ import { AuthService } from "../../../../../auth/services/auth.service";
 })
 export class ProfileComponent implements OnInit {
   user!: User;
+  avatarApi: string = environment.AVATAR_BASE_URL;
+  avatarUrl!: string;
 
   constructor(private authService: AuthService) {}
 
@@ -19,6 +22,9 @@ export class ProfileComponent implements OnInit {
       this.authService.getUser().subscribe({
         next: (res: any) => {
           this.user = res.user;
+          this.avatarUrl = res.user.avatar
+            ? `${this.avatarApi}/${res.user.avatar}` // Use absolute URL
+            : "";
         },
         error: (error) => {
           console.error(error);

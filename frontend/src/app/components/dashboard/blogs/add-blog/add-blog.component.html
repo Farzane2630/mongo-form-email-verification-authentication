@@ -1,0 +1,24 @@
+<div
+  id="main"
+  [style]="style"
+  class="bg-slate-400 p-8 rounded-lg z-[9999999] absolute top-[5%] left-[5%]"
+>
+  <button (click)="closeModal()">
+    <i class="fa fa-close"></i>
+  </button>
+  <form class="flex flex-col gap-y-4">
+    <label for="title">Title:</label>
+    <input type="text" id="title" />
+
+    <label for="category">Category:</label>
+    <input type="text" id="category" />
+
+    <label for="content">Content:</label>
+    <textarea type="text" id="content"></textarea>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" />
+
+    <button type="submit" class="bg-black text-white">Publish</button>
+  </form>
+</div>
