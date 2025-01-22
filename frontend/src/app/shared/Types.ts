@@ -1,14 +1,14 @@
 export interface Article {
-  _id: number;
+  _id?: number;
   title: string;
   body: string;
-  author: string;
+  author?: string;
   image: string;
   category: string;
-  publishDate: string;
-  lastUpdate: string;
-  comments: string[] | Comment[];
-  likes: number;
+  publishDate?: string;
+  lastUpdate?: string;
+  comments?: string[] | Comment[];
+  likes?: number;
   readingTime: string;
 }
 

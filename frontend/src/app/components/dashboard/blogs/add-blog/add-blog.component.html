@@ -1,24 +1,31 @@
+<!-- [style]="style" -->
 <div
   id="main"
-  [style]="style"
   class="bg-slate-400 p-8 rounded-lg z-[9999999] absolute top-[5%] left-[5%]"
 >
   <button (click)="closeModal()">
     <i class="fa fa-close"></i>
   </button>
-  <form class="flex flex-col gap-y-4">
+  <form
+    class="flex flex-col gap-y-4"
+    [formGroup]="blogForm"
+    (ngSubmit)="publish()"
+  >
     <label for="title">Title:</label>
-    <input type="text" id="title" />
+    <input type="text" formControlName="title" id="title" />
 
     <label for="category">Category:</label>
-    <input type="text" id="category" />
+    <input type="text" id="category" formControlName="category" />
 
     <label for="content">Content:</label>
-    <textarea type="text" id="content"></textarea>
+    <textarea type="text" id="content" formControlName="content"></textarea>
+
+    <label for="reading-time">Reading Time:</label>
+    <input type="text" id="reading-time" formControlName="readingTime" />
 
     <label for="image">Image:</label>
-    <input type="file" id="image" />
+    <input type="file" id="image" formControlName="image" />
 
-    <button type="submit" class="bg-black text-white">Publish</button>
+    <button class="bg-black text-white">Publish</button>
   </form>
 </div>
