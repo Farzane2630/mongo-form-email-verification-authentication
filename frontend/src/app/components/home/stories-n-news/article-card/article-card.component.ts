@@ -21,7 +21,7 @@ export class ArticleCardComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
   }
-  saveBtnHandler(id: number) {
+  saveBtnHandler(id: number | undefined) {
     if (this.isLoggedIn) {
       if (!this.isPicked) {
         this.isPicked = true;
