@@ -256,6 +256,68 @@ const checkAuth = async (req, res) => {
   }
 };
 
+const editProfile = async (req, res) => {
+  const { name, password, mobile } = req.body;
+
+  if (!name || !password || !mobile) {
+    throw new Error("All fields are required");
+  }
+
+  try {
+    const user = await User.findById(req.userId).select("-password");
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized user!",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+    user.name = name;
+    user.mobile = mobile;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "profile updated successfully!",
+      user,
+    });
+  } catch (error) {
+    console.log("error in editProfile:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
+};
+
+const editAvatar = async (req, res) => {
+  const avatar = req.file;
+  if (!avatar) {
+    throw new Error("Field is required!");
+  }
+  try {
+    const user = await User.findById(req.userId).select("-password");
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized User!" });
+    }
+    user.avatar = `images/${avatar.filename}`;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Avatar updated successfully",
+    });
+  } catch (error) {
+    console.log("error in editAvatar:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "something went wrong!" });
+  }
+};
+
 module.exports = {
   login,
   register,
@@ -264,4 +326,6 @@ module.exports = {
   forgotPassword,
   resetPassword,
   checkAuth,
+  editProfile,
+  editAvatar,
 };
