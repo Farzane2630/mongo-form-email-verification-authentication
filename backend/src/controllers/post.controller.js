@@ -2,19 +2,23 @@ const { Post } = require("../models/post.model");
 const { User } = require("../models/user.model");
 
 const createPost = async (req, res) => {
-  const { title, category, body, image, readingTime } = req.body;
+  console.log("file", req.file);
+  console.log("text", req.body);
+
+  const { title, category, body, readingTime } = req.body;
+
   const user = await User.findById(req.userId).select("-password");
 
   try {
     // check for required fields
-    if (!title || !category || !body || !image || !readingTime) {
+    if (!title || !category || !body || !readingTime) {
       throw new Error("All fields are required");
     }
     const newPost = new Post({
       title,
       category,
       body,
-      image,
+      image: `images/${req.file.filename}`,
       readingTime,
       author: user.name,
     });

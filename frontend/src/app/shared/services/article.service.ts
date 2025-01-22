@@ -18,7 +18,9 @@ export class ArticleService {
 
   postArticle(post: Article): Observable<any> {
     return this.http.post(`${this.api_url}/posts/new-post`, post, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
   }
 }

@@ -24,7 +24,7 @@
     <input type="text" id="reading-time" formControlName="readingTime" />
 
     <label for="image">Image:</label>
-    <input type="file" id="image" formControlName="image" />
+    <input type="file" id="image" (change)="onFileChange($event)" />
 
     <button class="bg-black text-white">Publish</button>
   </form>

@@ -10,11 +10,11 @@ const uploadRoutes = require("../imageUploader/imageUploader");
 const app = express();
 
 // Set Middlewares
-app.use(express.urlencoded({ extended: true })); // for bcrypt
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/images", express.static("images"));
+app.use(express.urlencoded({ extended: true })); // for bcrypt
 
 // Port
 const port = process.env.PORT || 5000;

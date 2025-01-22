@@ -9,7 +9,6 @@ const {
   resetPassword,
   checkAuth,
   editProfile,
-  editAvatar,
 } = require("../controllers/auth.controller");
 const verifyToken = require("../../middlewares/verifyToken");
 const upload = require("../../middlewares/uploadFile");
@@ -26,7 +25,6 @@ router.post("/reset-password/:token", resetPassword);
 
 router.post("/logout", logout);
 
-router.post("/edit-profile", verifyToken, editProfile);
-router.post("/edit-avatar", verifyToken,upload.single("avatar"), editAvatar);
+router.post("/edit-profile", verifyToken, upload.single("avatar"), editProfile);
 
 module.exports = router;
