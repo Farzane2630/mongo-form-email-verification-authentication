@@ -5,10 +5,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import { AvatarComponent } from "./avatar/avatar.component";
 
 @Component({
   selector: "app-edit-profile",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AvatarComponent],
   templateUrl: "./edit-profile.component.html",
   styleUrl: "./edit-profile.component.scss",
 })
