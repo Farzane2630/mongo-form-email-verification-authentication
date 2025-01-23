@@ -1,13 +1,11 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import {
-  FormControl,
+  FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
 import { ArticleService } from "../../../../shared/services/article.service";
-import { Article } from "../../../../shared/Types";
-import { error } from "console";
 
 @Component({
   selector: "app-add-blog",
@@ -19,69 +17,51 @@ export class AddBlogComponent {
   @Input() style: string = "visibility: hidden";
   @Output() clickHandler = new EventEmitter();
 
-  blogForm: FormGroup = new FormGroup({
-    title: new FormControl("", [Validators.required, Validators.minLength(4)]),
-    category: new FormControl("", [
-      Validators.required,
-      Validators.minLength(3),
-    ]),
-    content: new FormControl("", [
-      Validators.required,
-      Validators.minLength(50),
-    ]),
-    // image: new FormControl(null, [Validators.required]),
-    readingTime: new FormControl("", [Validators.required]),
-  });
-  
-  selectedFile: any = null;
-  
-  constructor(private articleService: ArticleService) {}
+  blogForm: FormGroup;
+  selectedImage: File | null = null;
+
+  constructor(
+    private articleService: ArticleService,
+    private fb: FormBuilder
+  ) {
+    this.blogForm = this.fb.group({
+      title: ["", Validators.required],
+      category: ["", Validators.required],
+      content: ["", Validators.required],
+      readingTime: ["", Validators.required],
+      image: [null],
+    });
+  }
 
   closeModal() {
     this.clickHandler.emit();
   }
 
-  onFileChange(event: Event) {
-    
-    // const input = event.target as HTMLInputElement;
-    // if (input.files && input.files.length) {
-    //   this.selectedFile = input.files[0];
-    // }
-
-    // console.log(this.selectedFile);
-  }
-  
-  publish() {
-    // const post: Article = {
-    //     title: this.blogForm.value.title,
-    //     category: this.blogForm.value.category,
-    //     body: this.blogForm.value.content,
-    //     image: this.selectedFile.name,
-    //     readingTime: this.blogForm.value.readingTime,
-    //   };
-
-    //   console.log(post);
-      
-      
-      // if (this.blogForm.valid) {
-        // const formData = new FormData();
-        // formData.append("title", this.blogForm.get("title")?.value);
-        // formData.append("category", this.blogForm.get("category")?.value);
-        // formData.append("content", this.blogForm.get("content")?.value);
-        // formData.append("readingTime", this.blogForm.get("readingTime")?.value);
-        
-        // // Append the selected file
-        // if (this.selectedFile) {
-        //   formData.append("image", this.selectedFile, this.selectedFile.name);
-        // }
-        // console.log(this.blogForm);
-    // }
-    // this.articleService.postArticle(post).subscribe({
-    //   next: (res: any) => console.log(res),
-    //   error: (error: any) => console.error(error),
-    // });
-
-    this.closeModal()
+  uploadFile(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedImage = input.files[0];
+    }
   }
 
+  submitForm() {
+    if (this.blogForm.valid) {
+      const formData: any = new FormData();
+
+      formData.append("title", this.blogForm.get("title")?.value);
+      formData.append("category", this.blogForm.get("category")?.value);
+      formData.append("body", this.blogForm.get("content")?.value);
+      formData.append("readingTime", this.blogForm.get("readingTime")?.value);
+
+      if (this.selectedImage) {
+        formData.append("image", this.selectedImage, this.selectedImage.name);
+        this.articleService.postArticle(formData).subscribe({
+          next: (res: any) => console.log(res),
+          error: (error: any) => console.error(error),
+        });
+      }
+    }
+
+    this.closeModal();
+  }
 }

@@ -6,7 +6,11 @@
   <button (click)="closeModal()">
     <i class="fa fa-close text-xl"></i>
   </button>
-  <form class="flex flex-col p-4" [formGroup]="blogForm" (ngSubmit)="publish()">
+  <form
+    class="flex flex-col p-4"
+    [formGroup]="blogForm"
+    (ngSubmit)="submitForm()"
+  >
     <label class="text-lg font-semibold text-blue-500" for="title"
       >Title:</label
     >
@@ -54,8 +58,9 @@
       class="text-gray-800 mt-2 mb-12 font-medium text-lg"
       type="file"
       id="image"
-      (change)="onFileChange($event)"
-    />
+      formControlName="image"
+      (change)="uploadFile($event)"
+      />
 
     <button
       class="bg-blue-500 py-4 rounded-lg hover:opacity-90 text-white text-lg font-extrabold"
