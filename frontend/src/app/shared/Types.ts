@@ -10,6 +10,7 @@ export interface Article {
   comments?: string[] | Comment[];
   likes?: number;
   readingTime: string;
+  posts?: Article[];
 }
 
 export interface User {

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Post } = require("./post.model");
 
 userSchema = new mongoose.Schema(
   {
@@ -30,6 +31,10 @@ userSchema = new mongoose.Schema(
     isVerified: {
       type: Boolean,
       default: false,
+    },
+    posts: {
+      type: [],
+      default: [],
     },
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,

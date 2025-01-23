@@ -24,6 +24,9 @@ const createPost = async (req, res) => {
     });
 
     await newPost.save();
+    user.posts = [...user.posts, newPost];
+
+    await user.save();
 
     res.status(201).json({ success: true, post: newPost });
   } catch (error) {

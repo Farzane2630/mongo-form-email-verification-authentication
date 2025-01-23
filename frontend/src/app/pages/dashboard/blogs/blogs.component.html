@@ -16,10 +16,11 @@
   ></app-sample-btn>
 
   <div class="flex flex-col md:flex-row px-4 gap-y-4 md:gap-x-4 md:gap-y-0">
-    <app-blog-card></app-blog-card>
-    <app-blog-card></app-blog-card>
-    <app-blog-card></app-blog-card>
-    <app-blog-card></app-blog-card>
-    <app-blog-card></app-blog-card>
+    @if(blogs.length){
+      @for(blog of blogs; track blog._id){
+        <app-blog-card [blog]="blog"></app-blog-card>
+      }
+    }
+   
   </div>
 </div>

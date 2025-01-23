@@ -6,7 +6,7 @@
     <img
       fill
       class="rounded-md object-cover"
-      ngSrc="https://media.istockphoto.com/id/1767577420/de/foto/feuerwerks-strand.webp?a=1&b=1&s=612x612&w=0&k=20&c=hOT6dviWMevlf7FGnyTx_CHRQOoQyzyZGGXcIOHTtAc="
+      [ngSrc]="blog.image"
       alt="Descriptive alt text"
     />
   </div>
@@ -14,7 +14,7 @@
     text="category"
     style="background-color: rgb(9, 77, 111)"
   ></app-badge>
-  <p>04 Mar 2024</p>
-  <p>A First time guide to Mallorca!</p>
-  <p>by Farzaneh Kazemi</p>
+  <p>{{blog.publishDate | date}}</p>
+  <p>{{blog.title}}</p>
+  <p>by {{blog.author}}</p>
 </div>
