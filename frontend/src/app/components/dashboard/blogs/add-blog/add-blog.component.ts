@@ -32,31 +32,35 @@ export class AddBlogComponent {
     // image: new FormControl(null, [Validators.required]),
     readingTime: new FormControl("", [Validators.required]),
   });
-
+  
   selectedFile: any = null;
-
+  
   constructor(private articleService: ArticleService) {}
+
+  closeModal() {
+    this.clickHandler.emit();
+  }
 
   onFileChange(event: Event) {
     
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length) {
-      this.selectedFile = input.files[0];
-    }
+    // const input = event.target as HTMLInputElement;
+    // if (input.files && input.files.length) {
+    //   this.selectedFile = input.files[0];
+    // }
 
-    console.log(this.selectedFile);
+    // console.log(this.selectedFile);
   }
   
   publish() {
-    const post: Article = {
-        title: this.blogForm.value.title,
-        category: this.blogForm.value.category,
-        body: this.blogForm.value.content,
-        image: this.selectedFile.name,
-        readingTime: this.blogForm.value.readingTime,
-      };
+    // const post: Article = {
+    //     title: this.blogForm.value.title,
+    //     category: this.blogForm.value.category,
+    //     body: this.blogForm.value.content,
+    //     image: this.selectedFile.name,
+    //     readingTime: this.blogForm.value.readingTime,
+    //   };
 
-      console.log(post);
+    //   console.log(post);
       
       
       // if (this.blogForm.valid) {
@@ -72,13 +76,12 @@ export class AddBlogComponent {
         // }
         // console.log(this.blogForm);
     // }
-    this.articleService.postArticle(post).subscribe({
-      next: (res: any) => console.log(res),
-      error: (error: any) => console.error(error),
-    });
+    // this.articleService.postArticle(post).subscribe({
+    //   next: (res: any) => console.log(res),
+    //   error: (error: any) => console.error(error),
+    // });
+
+    this.closeModal()
   }
 
-  closeModal() {
-    this.clickHandler.emit();
-  }
 }

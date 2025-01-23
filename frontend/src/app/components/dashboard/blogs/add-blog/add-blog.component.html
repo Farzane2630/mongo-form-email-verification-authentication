@@ -1,31 +1,66 @@
 <div
   [style]="style"
   id="main"
-  class="bg-slate-400 p-8 rounded-lg z-[9999999] absolute top-[5%] left-[5%]"
+  class="flex flex-col justify-start items-end bg-blue-100 p-4 rounded-lg z-[9999999] absolute top-[5%] left-[5%]"
 >
   <button (click)="closeModal()">
-    <i class="fa fa-close"></i>
+    <i class="fa fa-close text-xl"></i>
   </button>
-  <form
-    class="flex flex-col gap-y-4"
-    [formGroup]="blogForm"
-    (ngSubmit)="publish()"
-  >
-    <label for="title">Title:</label>
-    <input type="text" formControlName="title" id="title" />
+  <form class="flex flex-col p-4" [formGroup]="blogForm" (ngSubmit)="publish()">
+    <label class="text-lg font-semibold text-blue-500" for="title"
+      >Title:</label
+    >
+    <input
+      class="min-h-14 text-gray-800 mt-2 mb-4 rounded-md outline-none font-medium text-lg"
+      type="text"
+      formControlName="title"
+      id="title"
+    />
 
-    <label for="category">Category:</label>
-    <input type="text" id="category" formControlName="category" />
+    <label class="text-lg font-semibold text-blue-500" for="category"
+      >Category:</label
+    >
+    <input
+      class="min-h-14 text-gray-800 mt-2 mb-4 rounded-md outline-none font-medium text-lg"
+      type="text"
+      id="category"
+      formControlName="category"
+    />
 
-    <label for="content">Content:</label>
-    <textarea type="text" id="content" formControlName="content"></textarea>
+    <label class="text-lg font-semibold text-blue-500" for="content"
+      >Content:</label
+    >
+    <textarea
+      class="min-h-36 text-gray-800 mt-2 mb-4 rounded-md outline-none font-medium text-lg"
+      type="text"
+      id="content"
+      formControlName="content"
+    ></textarea>
 
-    <label for="reading-time">Reading Time:</label>
-    <input type="text" id="reading-time" formControlName="readingTime" />
+    <label class="text-lg font-semibold text-blue-500" for="reading-time"
+      >Reading Time:</label
+    >
+    <input
+      class="min-h-14 text-gray-800 mt-2 mb-4 rounded-md outline-none font-medium text-lg"
+      type="text"
+      id="reading-time"
+      formControlName="readingTime"
+    />
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" (change)="onFileChange($event)" />
+    <label class="text-lg font-semibold text-blue-500" for="image"
+      >Image:</label
+    >
+    <input
+      class="text-gray-800 mt-2 mb-12 font-medium text-lg"
+      type="file"
+      id="image"
+      (change)="onFileChange($event)"
+    />
 
-    <button class="bg-black text-white">Publish</button>
+    <button
+      class="bg-blue-500 py-4 rounded-lg hover:opacity-90 text-white text-lg font-extrabold"
+    >
+      Publish
+    </button>
   </form>
 </div>
