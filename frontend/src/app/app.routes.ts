@@ -85,7 +85,7 @@ export const routes: Routes = [
         path: "me",
         loadComponent: () =>
           import("./pages/dashboard/profile/profile.component").then(
-            (mod) => mod.ProfileComponent
+            (mod) => mod.ProfilePageComponent
           ),
       },
       {

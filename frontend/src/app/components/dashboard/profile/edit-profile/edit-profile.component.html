@@ -1,0 +1,82 @@
+<div>
+  <p id="title" class="text-start p-4 font-extrabold text-blue-600 text-xl">
+    Edit Personal Info
+  </p>
+  <form
+    [formGroup]="infoForm"
+    (submit)="submitForm()"
+    class="flex flex-col p-4"
+  >
+    <label class="text-lg font-semibold text-blue-500" for=""> Name: </label>
+    @if(infoForm.controls['name'].touched && infoForm.controls['name'].invalid){
+      @if(infoForm.controls['name'].hasError("minlength")){
+         <span class="text-red-500 text-sm font-medium">Atleast 3 Chars.</span>
+      }
+      @if(infoForm.controls['name'].hasError("required")){
+         <span class="text-red-500 text-sm font-medium">This field is required.</span>
+      }
+    }
+    <input
+      formControlName="name"
+      type="text"
+      class="bg-blue-100 rounded-lg min-h-12 mt-2 mb-4 outline-none"
+    />
+
+
+    <label class="text-lg font-semibold text-blue-500" for="">Mobile:</label>
+     @if(infoForm.controls['mobile'].touched && infoForm.controls['mobile'].invalid){
+      @if(infoForm.controls['mobile'].hasError("pattern")){
+         <span class="text-red-500 text-sm font-medium">Mobile pattern is incorrect.</span>
+      }
+      @if(infoForm.controls['mobile'].hasError("required")){
+         <span class="text-red-500 text-sm font-medium">This field is required.</span>
+      }
+    }
+    <input
+      formControlName="mobile"
+      type="text"
+      class="bg-blue-100 rounded-lg min-h-12 mt-2 mb-4 outline-none"
+    />
+
+
+    <label class="text-lg font-semibold text-blue-500" for="">Password:</label>
+     @if(infoForm.controls["password"].touched && infoForm.controls["password"].invalid){
+      @if(infoForm.controls["password"].hasError("minlength")){
+         <span class="text-red-500 text-sm font-medium">Atleast 6 Chars.</span>
+      }
+      @if(infoForm.controls["password"].hasError("required")){
+         <span class="text-red-500 text-sm font-medium">This field is required.</span>
+      }
+    }
+    <input
+      formControlName="password"
+      type="password"
+      class="bg-blue-100 rounded-lg min-h-12 mt-2 mb-4 outline-none"
+    />
+
+
+    <label class="text-lg font-semibold text-blue-500" for=""
+      >Confirm Password:</label
+    >
+    @if(infoForm.controls['confirmedPassword'].touched && infoForm.controls['confirmedPassword'].invalid){
+      @if(infoForm.controls['confirmedPassword'].hasError("minlength")){
+         <span class="text-red-500 text-sm font-medium">Atleast 6 Chars.</span>
+      }
+      @if(infoForm.controls['confirmedPassword'].hasError("required")){
+         <span class="text-red-500 text-sm font-medium">This field is required.</span>
+      }
+    }
+    <input
+      formControlName="confirmedPassword"
+      type="password"
+      class="bg-blue-100 rounded-lg min-h-12 mt-2 mb-4 outline-none"
+    />
+    <button
+      class="bg-blue-500 py-4 rounded-lg hover:p-5 text-white text-lg font-extrabold"
+      [disabled]="infoForm.invalid"
+      [style]="infoForm.invalid && 'opacity: 0.5'"
+    >
+      Confirm
+    </button>
+  </form>
+</div>

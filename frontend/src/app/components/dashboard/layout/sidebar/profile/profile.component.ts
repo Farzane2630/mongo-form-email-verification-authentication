@@ -5,12 +5,12 @@ import { AuthService } from "../../../../../auth/services/auth.service";
 import { environment } from "../../../../../../environments/environment";
 
 @Component({
-  selector: "app-profile",
+  selector: "app-profile-card",
   imports: [NgOptimizedImage],
   templateUrl: "./profile.component.html",
   // styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit {
+export class ProfileCardComponent implements OnInit {
   user!: User;
   avatarApi: string = environment.AVATAR_BASE_URL;
   avatarUrl!: string;
