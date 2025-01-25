@@ -4,6 +4,7 @@ import { SampleBtnComponent } from "../../../shared/components/btns/sample-btn/s
 import { AddBlogComponent } from "../../../components/dashboard/blogs/add-blog/add-blog.component";
 import { AuthService } from "../../../auth/services/auth.service";
 import { Article } from "../../../shared/Types";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: "app-blogs",
@@ -14,6 +15,7 @@ import { Article } from "../../../shared/Types";
 export class BlogsComponent implements OnInit {
   blogs: Article[] | [] = [];
   addBlogModalStyle: string = "visibility: hidden";
+  environment = environment.AVATAR_BASE_URL;
   showModal() {
     this.addBlogModalStyle = "visibility: visible";
   }
@@ -25,9 +27,13 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getUser().subscribe((res: any) => {
-      // console.log(res.user.posts);
-
       this.blogs = res.user.posts;
+
+      // convert image address
+      this.blogs.forEach(
+        (blog: Article) => (blog.image = `${this.environment}/${blog.image}`)
+      );
+
     });
   }
 }
