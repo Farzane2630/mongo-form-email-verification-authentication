@@ -61,4 +61,10 @@ export class AuthService {
 
     return !!token;
   }
+
+  editProfile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.api_url}/edit-profile`, formData, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 
 @Component({
@@ -8,18 +8,22 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrl: "./avatar.component.scss",
 })
 export class AvatarComponent {
-  avatar: string = "";
-  backgroundImage: string = "";
+  @Input() avatar: string = "";
+  @Input() backgroundImage: string = "";
+  @Output() fileChange = new EventEmitter()
   onFileChange(event: any) {
-    const files: any = event?.target.files as FileList;
+    this.fileChange.emit(event)
+    // const files: any = event?.target.files as FileList;
 
-    if (files.length) {
-      const _file = URL.createObjectURL(files[0]);
-      this.avatar = _file;
-      this.backgroundImage = "backgroundImage: url(" + this.avatar + ")";
+    // if (files.length) {
+    //   const _file = URL.createObjectURL(files[0]);
+    //   this.avatar = _file;
+    //   this.backgroundImage = "backgroundImage: url(" + this.avatar + ")";
 
-      // this.resetInput();
-    }
+    //   console.log(this.avatar);
+    // }
+      
+       this.resetInput();
   }
 
   resetInput() {
