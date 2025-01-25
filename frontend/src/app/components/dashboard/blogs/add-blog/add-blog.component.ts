@@ -55,6 +55,8 @@ export class AddBlogComponent {
 
       if (this.selectedImage) {
         formData.append("image", this.selectedImage, this.selectedImage.name);
+        console.log(formData.get("image"));
+        
         this.articleService.postArticle(formData).subscribe({
           next: (res: any) => console.log(res),
           error: (error: any) => console.error(error),

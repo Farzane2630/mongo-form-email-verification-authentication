@@ -260,7 +260,7 @@ const editProfile = async (req, res) => {
   const { name, password, mobile } = req.body;
   const avatar = req.file;
 
-  if (!name || !password || !mobile || !avatar) {
+  if (!name || !password || !mobile) {
     throw new Error("All fields are required");
   }
 
@@ -279,7 +279,9 @@ const editProfile = async (req, res) => {
     user.password = hashedPassword;
     user.name = name;
     user.mobile = mobile;
-    user.avatar = `images/${avatar.filename}`;
+    if (avatar) {
+      user.avatar = `images/${avatar.filename}`;
+    }
     await user.save();
 
     res.status(200).json({
@@ -294,7 +296,6 @@ const editProfile = async (req, res) => {
       .json({ success: false, message: "something went wrong!" });
   }
 };
-
 
 module.exports = {
   login,
