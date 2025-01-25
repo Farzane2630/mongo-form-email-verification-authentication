@@ -27,7 +27,7 @@ export class EditProfileComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.authService.getUser().subscribe((res: any) => {
       this.user = res.user;
@@ -60,7 +60,7 @@ export class EditProfileComponent {
       // set bg for avatar to see preview
       const bgUrl = URL.createObjectURL(input.files[0]);
       this.backgroundImage = `backgroundImage:url('${bgUrl}')`;
-    } 
+    }
   }
 
   submitForm() {
