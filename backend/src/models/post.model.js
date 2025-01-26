@@ -45,7 +45,7 @@ const postSchema = new mongoose.Schema({
   readingTime: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const commentSchema = new mongoose.Schema({
@@ -53,22 +53,31 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  writer: {
+    type: String,
+    required: true,
+  },
   likes: {
-   type: Number,
-   default: 0,
+    type: Number,
+    default: 0,
   },
   dislikes: {
-   type: Number,
-   default: 0,
+    type: Number,
+    default: 0,
   },
   replys: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",
     },
-  ],});
+  ],
+  publishDate: {
+    type: Date,
+    default: Date.now,
+  },
+});
 
 const Post = mongoose.model("Post", postSchema);
 const Comment = mongoose.model("Comment", commentSchema);
 
-module.exports = { Post,  Comment};
+module.exports = { Post, Comment };

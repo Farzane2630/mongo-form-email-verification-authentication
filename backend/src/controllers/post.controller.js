@@ -1,4 +1,4 @@
-const { Post } = require("../models/post.model");
+const { Post, Comment } = require("../models/post.model");
 const { User } = require("../models/user.model");
 
 const createPost = async (req, res) => {
@@ -121,4 +121,139 @@ const editPost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getPosts, getPost, deletePost, editPost };
+const addComment = async (req, res) => {
+  const postId = req.params.postId;
+  const userId = req.userId;
+  const { body } = req.body;
+
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  if (!body) {
+    throw new Error("Comment field must not be empty.");
+  }
+
+  try {
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found!" });
+    }
+    const comment = await Comment();
+    comment.body = body;
+    comment.writer = user.name;
+    await comment.save();
+
+    post.comments = [...post.comments, comment];
+    await post.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Comment added successfully ;)",
+      comment,
+      post,
+    });
+  } catch (error) {
+    console.log("Error in add comments", error);
+
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+};
+
+const answerComment = async (req, res) => {
+  const commentId = req.params.commentId;
+  const userId = req.userId;
+  const { body } = req.body;
+
+  const user = await User.findById(userId).select("-password");
+
+  if (!user) {
+    throw new Error("User not found.");
+  }
+
+  if (!body) {
+    throw new Error("Comment field must not be empty.");
+  }
+
+  try {
+    const comment = await Comment.findById(commentId);
+
+    if (!comment) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Comment not found!" });
+    }
+    const answer = await Comment();
+    answer.body = body;
+    answer.writer = user.name;
+    await answer.save();
+
+    comment.replys = [...comment.replys, answer];
+    await comment.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Comment added successfully ;)",
+      comment,
+      answer,
+    });
+  } catch (error) {
+    console.log("Error in add comments", error);
+
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+};
+
+const likePost = async (req, res) => {
+  const postId = req.params.postId;
+  try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      throw new Error("Post not Found!");
+    }
+    post.likes = post.likes + 1;
+
+    await post.save();
+
+    res.status(200).json({ success: true, message: "Liked ;)", post });
+  } catch (error) {
+    console.log("Error in like post", error);
+
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+};
+const likeComment = async (req, res) => {
+  const commentId = req.params.commentId;
+  try {
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      throw new Error("comment not Found!");
+    }
+    comment.likes = comment.likes + 1;
+
+    await comment.save();
+
+    res.status(200).json({ success: true, message: "Liked ;)", comment });
+  } catch (error) {
+    console.log("Error in like comment", error);
+
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+};
+
+module.exports = {
+  createPost,
+  getPosts,
+  getPost,
+  deletePost,
+  editPost,
+  addComment,
+  answerComment,
+  likePost,
+  likeComment,
+};
