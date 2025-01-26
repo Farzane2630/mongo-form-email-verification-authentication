@@ -36,6 +36,10 @@ userSchema = new mongoose.Schema(
       type: [],
       default: [],
     },
+    savedPosts: {
+      type: [],
+      default: [],
+    },
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
     verificationToken: String,

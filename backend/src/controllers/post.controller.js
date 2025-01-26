@@ -246,6 +246,32 @@ const likeComment = async (req, res) => {
   }
 };
 
+const savePost = async (req, res) => {
+  const postId = req.params.postId;
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      throw new Error("User not found.");
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      throw new Error("Post not found.");
+    }
+
+    user.savedPosts = [...user.savedPosts, post];
+    await user.save();
+
+    res.status(200).json({ success: true, message: "Post saved;)", user });
+  } catch (error) {
+    console.log("Error in save Post", error);
+
+    res.status(500).json({ success: false, message: "Something went wrong!" });
+  }
+}
+
 module.exports = {
   createPost,
   getPosts,
@@ -256,4 +282,5 @@ module.exports = {
   answerComment,
   likePost,
   likeComment,
+  savePost
 };
