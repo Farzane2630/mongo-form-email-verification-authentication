@@ -42,7 +42,7 @@
 
 🚀 Super Detailed Deployment
 
-Setup .env file
+Setup /backend/.env file
 
 ```
 MONGO_URI=your_mongo_uri
@@ -58,4 +58,15 @@ NODEMAILER_PASSWORD=your email password
 
 
 CLIENT_URL=your client/frontend url 
+```
+
+Setup /frontend/src/environment/environment.js
+
+```
+export const environment = {
+  production: false,
+  API_AUTH_URL: "http://localhost:5000/api/auth", // Your AUTH API base URL for development
+  API_URL: "http://localhost:5000/api", // Your API base URL for development
+  IMAGE_BASE_URL: "http://localhost:5000", // Your IMAGE API  base URL for development
+};
 ```
