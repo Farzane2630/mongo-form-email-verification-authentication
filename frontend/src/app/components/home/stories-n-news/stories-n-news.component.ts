@@ -5,6 +5,7 @@ import { ArticleCardComponent } from "./article-card/article-card.component";
 import { Article } from "../../../shared/Types";
 import { ArticleService } from "../../../shared/services/article.service";
 import { error } from "console";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: "app-stories-n-news",
@@ -13,17 +14,17 @@ import { error } from "console";
   // styleUrl: './stories-n-news.component.scss'
 })
 export class StoriesNNewsComponent implements OnInit {
-  articles!: Article[] 
+  articles!: Article[];
+  env = environment.IMAGE_BASE_URL;
 
   constructor(private articleService: ArticleService) {}
 
   getPosts() {
     this.articleService.getArticles(4).subscribe((res: any) => {
       this.articles = res.posts;
-    })
+    });
   }
   ngOnInit(): void {
-    
     this.getPosts();
   }
 }

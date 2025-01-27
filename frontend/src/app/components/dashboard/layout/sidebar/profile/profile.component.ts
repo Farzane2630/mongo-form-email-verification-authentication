@@ -12,7 +12,7 @@ import { environment } from "../../../../../../environments/environment";
 })
 export class ProfileCardComponent implements OnInit {
   user!: User;
-  avatarApi: string = environment.AVATAR_BASE_URL;
+  avatarApi: string = environment.IMAGE_BASE_URL;
   avatarUrl!: string;
 
   constructor(private authService: AuthService) {}

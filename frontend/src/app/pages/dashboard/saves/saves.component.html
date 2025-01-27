@@ -1,1 +1,5 @@
-<p>saves works!</p>
+<div class="p-4 flex flex-col gap-y-4">
+   @for(post of savedPosts ; track post._id ){
+     <app-article-card [article]="post" />
+   }
+</div>

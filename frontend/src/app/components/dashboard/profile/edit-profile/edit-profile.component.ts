@@ -23,7 +23,7 @@ export class EditProfileComponent {
   // avatar
   avatar: any = null;
   backgroundImage = "";
-  environment = environment.AVATAR_BASE_URL;
+  environment = environment.IMAGE_BASE_URL;
 
   constructor(
     private fb: FormBuilder,

@@ -73,8 +73,7 @@ const deletePost = async (req, res) => {
         "You are not the author. You cannot delete or edit this post."
       );
     } else {
-    user.posts = user.posts.filter((blog) => blog._id != postId);
-
+      user.posts = user.posts.filter((blog) => blog._id != postId);
     }
 
     await post.deleteOne();
@@ -265,16 +264,33 @@ const savePost = async (req, res) => {
       throw new Error("Post not found.");
     }
 
-      user.savedPosts = [...user.savedPosts, post];
-      await user.save();
+    // Check if the post is already saved
+    const isPostSaved = user.savedPosts.find(
+      (post) => post._id.toString() === postId
+    );
 
-    res.status(200).json({ success: true, message: "Post saved;)", user });
+    if (isPostSaved) {
+      user.savedPosts = user.savedPosts.filter((post) => post._id != postId);
+      
+       await user.save();
+      return res
+        .status(200)
+        .json({ success: true, message: "Post is unsaved!"});
+    }
+
+    // Add the post to the user's saved posts
+    user.savedPosts = [...user.savedPosts, post];
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Post saved;)", isSaved: true });
   } catch (error) {
     console.log("Error in save Post", error);
 
     res.status(500).json({ success: false, message: "Something went wrong!" });
   }
-}
+};
 
 module.exports = {
   createPost,

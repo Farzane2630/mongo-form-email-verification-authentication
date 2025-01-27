@@ -2,27 +2,29 @@
   id="article-card"
   class="p-4 md:p-2 rounded-lg flex items-stretch justify-between border border-solid border-gray-300 bg-blue-200 text-black"
 >
-  <a [routerLink]="['/articles', article._id]" class="flex items-center justify-start">
-     <div class="w-[80px] h-[80px] relative">
-        <img
-          [ngSrc]="article.image"
-          alt="holiday article"
-          fill
-          class="rounded"
-        />
-      </div>
-      <div id="details" class="ms-4">
-        <p id="category" class="font-semibold">{{ article.category }}</p>
-        <p id="title" class="max-h-[30px] overflow-hidden text-xl font-bold">
-          {{ article.title }}
-        </p>
-        <p class="font-normal">
-          <span id="date">{{ article.publishDate | date }}. </span>
-          <span id="reading-time">{{ article.readingTime }} min read</span>
-        </p>
-      </div>
+  <a
+    [routerLink]="['/articles', article._id]"
+    class="flex items-center justify-start"
+  >
+    <div class="w-[80px] h-[80px] relative">
+      <img [ngSrc]="imageUrl" alt="holiday article" fill class="rounded" />
+    </div>
+    <div id="details" class="ms-4">
+      <p id="category" class="font-semibold">{{ article.category }}</p>
+      <p id="title" class="max-h-[30px] overflow-hidden text-xl font-bold">
+        {{ article.title }}
+      </p>
+      <p class="font-normal">
+        <span id="date">{{ article.publishDate | date }}. </span>
+        <span id="reading-time">{{ article.readingTime }} min read</span>
+      </p>
+    </div>
   </a>
   <button id="save-icon" (click)="saveBtnHandler(article._id)">
-    <i [class]="!isPicked ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"></i>
+    @if (isLoading) {
+      <app-loading></app-loading>
+    } @else {
+      <i [class]="!isSaved ? 'fa-regular fa-bookmark' : 'fa fa-bookmark'"></i>
+    }
   </button>
 </div>

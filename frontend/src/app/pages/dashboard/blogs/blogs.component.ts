@@ -15,7 +15,7 @@ import { environment } from "../../../../environments/environment";
 export class BlogsComponent implements OnInit {
   blogs: Article[] | [] = [];
   addBlogModalStyle: string = "visibility: hidden";
-  environment = environment.AVATAR_BASE_URL;
+  environment = environment.IMAGE_BASE_URL;
   showModal() {
     this.addBlogModalStyle = "visibility: visible";
   }
@@ -33,7 +33,6 @@ export class BlogsComponent implements OnInit {
       this.blogs.forEach(
         (blog: Article) => (blog.image = `${this.environment}/${blog.image}`)
       );
-
     });
   }
 }
