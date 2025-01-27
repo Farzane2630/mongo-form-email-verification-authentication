@@ -72,9 +72,13 @@ const deletePost = async (req, res) => {
       throw new Error(
         "You are not the author. You cannot delete or edit this post."
       );
+    } else {
+    user.posts = user.posts.filter((blog) => blog._id != postId);
+
     }
 
     await post.deleteOne();
+    await user.save();
 
     res.status(200).json({ success: true, message: "Post deleted" });
   } catch (error) {
@@ -261,8 +265,8 @@ const savePost = async (req, res) => {
       throw new Error("Post not found.");
     }
 
-    user.savedPosts = [...user.savedPosts, post];
-    await user.save();
+      user.savedPosts = [...user.savedPosts, post];
+      await user.save();
 
     res.status(200).json({ success: true, message: "Post saved;)", user });
   } catch (error) {
@@ -282,5 +286,5 @@ module.exports = {
   answerComment,
   likePost,
   likeComment,
-  savePost
+  savePost,
 };

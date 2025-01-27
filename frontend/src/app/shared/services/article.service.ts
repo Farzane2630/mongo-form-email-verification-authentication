@@ -23,4 +23,20 @@ export class ArticleService {
       },
     });
   }
+
+  saveArticle(postId: string | undefined) {
+    return this.http.post(`${this.api_url}/posts/save-post/${postId}`, null, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  }
+
+  deleteArticle(postId: string | undefined) {
+    return this.http.delete(`${this.api_url}/posts/delete-post/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+  }
 }
