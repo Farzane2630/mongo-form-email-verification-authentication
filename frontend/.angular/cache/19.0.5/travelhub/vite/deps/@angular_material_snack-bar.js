@@ -18,7 +18,7 @@ import {
   _IdGenerator,
   _StructuralStylesLoader,
   hasModifierKey
-} from "./chunk-JHZUZ2G6.js";
+} from "./chunk-QHQJI36P.js";
 import {
   BreakpointObserver,
   Breakpoints,
@@ -32,7 +32,7 @@ import {
   coerceNumberProperty,
   getRtlScrollAxisType,
   supportsScrollBehavior
-} from "./chunk-DGODWOF3.js";
+} from "./chunk-HGXKE5BL.js";
 import {
   DOCUMENT,
   Location

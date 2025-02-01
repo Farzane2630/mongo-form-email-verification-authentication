@@ -21,13 +21,15 @@
             "outputPath": "dist/travelhub",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "node_modules/@kolkov/angular-editor/assets/icons",
+                "output": "assets/ae-icons/"
+              },
               {
                 "glob": "**/*",
                 "input": "public"
@@ -38,9 +40,7 @@
               "src/styles.scss",
               "node_modules/cropperjs/dist/cropper.css"
             ],
-            "scripts": [
-              "node_modules/cropperjs/dist/cropper.js"
-            ]
+            "scripts": ["node_modules/cropperjs/dist/cropper.js"]
           },
           "configurations": {
             "production": {
@@ -92,6 +92,13 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@kolkov/angular-editor/assets/",
+                "output": "./assets/fonts/"
+              },
               {
                 "glob": "**/*",
                 "input": "public"

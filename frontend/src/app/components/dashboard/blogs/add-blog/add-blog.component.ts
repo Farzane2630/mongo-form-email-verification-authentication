@@ -6,16 +6,18 @@ import {
   Validators,
 } from "@angular/forms";
 import { ArticleService } from "../../../../shared/services/article.service";
+import { EditorComponent } from "../../../../shared/components/editor/editor.component";
 
 @Component({
   selector: "app-add-blog",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, EditorComponent],
   templateUrl: "./add-blog.component.html",
   styleUrl: "./add-blog.component.scss",
 })
 export class AddBlogComponent {
   @Input() style: string = "visibility: hidden";
   @Output() clickHandler = new EventEmitter();
+  // editorContent=""
 
   blogForm: FormGroup;
   selectedImage: File | null = null;
@@ -56,7 +58,7 @@ export class AddBlogComponent {
       if (this.selectedImage) {
         formData.append("image", this.selectedImage, this.selectedImage.name);
         console.log(formData.get("image"));
-        
+
         this.articleService.postArticle(formData).subscribe({
           next: (res: any) => console.log(res),
           error: (error: any) => console.error(error),
