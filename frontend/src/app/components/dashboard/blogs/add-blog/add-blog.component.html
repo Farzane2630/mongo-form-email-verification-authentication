@@ -34,7 +34,7 @@
     <label class="text-lg font-semibold text-blue-500" for="content"
       >Content:</label
     >
-   <app-editor></app-editor>
+    <app-editor [content]="content"></app-editor>
     <label class="text-lg font-semibold text-blue-500" for="reading-time"
       >Reading Time:</label
     >
@@ -54,7 +54,7 @@
       id="image"
       formControlName="image"
       (change)="uploadFile($event)"
-      />
+    />
 
     <button
       class="bg-blue-500 py-4 rounded-lg hover:opacity-90 text-white text-lg font-extrabold"

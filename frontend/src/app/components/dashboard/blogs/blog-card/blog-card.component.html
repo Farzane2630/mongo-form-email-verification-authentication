@@ -2,27 +2,35 @@
   id="container"
   class="flex flex-col items-start justify-start gap-y-2 rounded-md shadow-lg drop-stale-300 p-4"
 >
-  <div class="w-full min-h-[200px] h-full relative">
-    <img
-      fill
-      class="rounded-md object-cover"
-      [ngSrc]="blog.image"
-      alt="Descriptive alt text"
-    />
-  </div>
-  <app-badge
-    text="category"
-    style="background-color: rgb(9, 77, 111)"
-  ></app-badge>
-  <p>{{ blog.publishDate | date }}</p>
-  <p>{{ blog.title }}</p>
-  <p>by {{ blog.author }}</p>
+  <a [routerLink]="'/articles/' + blog._id">
+    <div class="w-full min-h-[200px] h-full relative">
+      <img
+        fill
+        class="rounded-md object-cover"
+        [ngSrc]="blog.image"
+        alt="Descriptive alt text"
+      />
+    </div>
+    <app-badge
+      text="category"
+      style="background-color: rgb(9, 77, 111)"
+    ></app-badge>
+    <p>{{ blog.publishDate | date }}</p>
+    <p>{{ blog.title }}</p>
+    <p>by {{ blog.author }}</p>
+  </a>
 
   <div id="actions" class="flex gap-x-4">
-    <button (click)="edit(blog._id)" class="w-16 bg-blue-600 text-white p-2 rounded-md font-base">
+    <button
+      (click)="edit(blog._id)"
+      class="w-16 bg-blue-600 text-white p-2 rounded-md font-base"
+    >
       Edit
     </button>
-    <button (click)="delete(blog._id)" class="w-16 bg-red-600 text-white p-2 rounded-md font-base">
+    <button
+      (click)="delete(blog._id)"
+      class="w-16 bg-red-600 text-white p-2 rounded-md font-base"
+    >
       Delete
     </button>
   </div>

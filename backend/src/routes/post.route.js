@@ -16,7 +16,7 @@ const {
 const upload = require("../../middlewares/uploadFile");
 
 router.get("/:limit", getPosts);
-router.get("/:postId", getPost);
+router.get("/post/:postId", getPost);
 router.post("/new-post", verifyToken, upload.single("image"), createPost);
 router.post(
   "/edit-post/:postId",

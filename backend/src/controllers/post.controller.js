@@ -271,11 +271,11 @@ const savePost = async (req, res) => {
 
     if (isPostSaved) {
       user.savedPosts = user.savedPosts.filter((post) => post._id != postId);
-      
-       await user.save();
+
+      await user.save();
       return res
         .status(200)
-        .json({ success: true, message: "Post is unsaved!"});
+        .json({ success: true, message: "Post is unsaved!" });
     }
 
     // Add the post to the user's saved posts

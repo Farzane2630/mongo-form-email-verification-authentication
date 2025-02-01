@@ -15,6 +15,9 @@ export class ArticleService {
   getArticles(limit: number) {
     return this.http.get(`${this.api_url}/posts/${limit}`);
   }
+  getArticle(postId: string) {
+    return this.http.get(`${this.api_url}/posts/post/${postId}`);
+  }
 
   postArticle(post: Article): Observable<any> {
     return this.http.post(`${this.api_url}/posts/new-post`, post, {

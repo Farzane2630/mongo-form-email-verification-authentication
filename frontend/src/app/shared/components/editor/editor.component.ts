@@ -1,8 +1,10 @@
-import { Component} from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule,AngularEditorConfig } from "@kolkov/angular-editor";
+import { Component, Input } from "@angular/core";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import {
+  AngularEditorModule,
+  AngularEditorConfig,
+} from "@kolkov/angular-editor";
 // import { AngularEditorConfig } from '@kolkov/angular-editor';
-
 
 @Component({
   selector: "app-editor",
@@ -11,8 +13,7 @@ import { AngularEditorModule,AngularEditorConfig } from "@kolkov/angular-editor"
   styleUrl: "./editor.component.scss",
 })
 export class EditorComponent {
-  name = "Angular 6";
-  htmlContent = "";
+  @Input() content!: FormGroup;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -23,7 +24,8 @@ export class EditorComponent {
     translate: "no",
     defaultParagraphSeparator: "p",
     defaultFontName: "Arial",
-    toolbarHiddenButtons: [["bold"]],
+    toolbarHiddenButtons: [],
+
     customClasses: [
       {
         name: "quote",

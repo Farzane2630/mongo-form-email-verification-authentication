@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -17,9 +18,9 @@ import { EditorComponent } from "../../../../shared/components/editor/editor.com
 export class AddBlogComponent {
   @Input() style: string = "visibility: hidden";
   @Output() clickHandler = new EventEmitter();
-  // editorContent=""
 
   blogForm: FormGroup;
+  content!: FormGroup;
   selectedImage: File | null = null;
 
   constructor(
@@ -29,9 +30,11 @@ export class AddBlogComponent {
     this.blogForm = this.fb.group({
       title: ["", Validators.required],
       category: ["", Validators.required],
-      content: ["", Validators.required],
       readingTime: ["", Validators.required],
       image: [null],
+    });
+    this.content = this.fb.group({
+      content: ["", Validators.required],
     });
   }
 
@@ -47,25 +50,24 @@ export class AddBlogComponent {
   }
 
   submitForm() {
-    if (this.blogForm.valid) {
+    if (this.blogForm.valid && this.content.valid) {
       const formData: any = new FormData();
 
       formData.append("title", this.blogForm.get("title")?.value);
       formData.append("category", this.blogForm.get("category")?.value);
-      formData.append("body", this.blogForm.get("content")?.value);
+      formData.append("body", this.content.get("content")?.value);
       formData.append("readingTime", this.blogForm.get("readingTime")?.value);
-
       if (this.selectedImage) {
         formData.append("image", this.selectedImage, this.selectedImage.name);
-        console.log(formData.get("image"));
 
         this.articleService.postArticle(formData).subscribe({
           next: (res: any) => console.log(res),
           error: (error: any) => console.error(error),
         });
       }
+      this.closeModal();
     }
 
-    this.closeModal();
+    alert("Form is not valid!");
   }
 }
