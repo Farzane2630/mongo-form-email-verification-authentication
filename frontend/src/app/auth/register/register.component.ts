@@ -34,8 +34,18 @@ export class RegisterComponent {
     password: new FormControl("", [
       Validators.required,
       Validators.minLength(6),
+      this.strongPassword
     ]),
   });
+
+  strongPassword(control: FormControl): { [key: string]: boolean } | null {
+    const hasUpperCase = /[A-Z]/.test(control.value);
+    const hasLowerCase = /[a-z]/.test(control.value);
+    const hasNumber = /\d/.test(control.value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(control.value);
+    const isValid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+    return isValid ? null : { weakPassword: true };
+  }
 
   isLoading = false;
 
@@ -52,7 +62,7 @@ export class RegisterComponent {
       this.authService.registerUser(userInfo).subscribe({
         next: (res) => {
           // console.log(res.user);
-          
+
           alert(res.message);
           this.router.navigate(["/auth/verify-email"]);
           this.isLoading = false;

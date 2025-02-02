@@ -20,12 +20,23 @@ export class ResetPasswordComponent {
     newPassword: new FormControl("", [
       Validators.required,
       Validators.minLength(6),
+      this.strongPassword
     ]),
     repeatPassword: new FormControl("", [
       Validators.required,
       Validators.minLength(6),
+      this.strongPassword
     ]),
   });
+
+  strongPassword(control: FormControl): { [key: string]: boolean } | null {
+    const hasUpperCase = /[A-Z]/.test(control.value);
+    const hasLowerCase = /[a-z]/.test(control.value);
+    const hasNumber = /\d/.test(control.value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(control.value);
+    const isValid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+    return isValid ? null : { weakPassword: true };
+  }
 
   isLoading = false;
 
