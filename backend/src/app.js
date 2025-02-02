@@ -3,6 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const connectToDB = require("./utils/db");
+const limiter = require("../middlewares/limiter")
 const authRoutes = require("./routes/auth.route");
 const postRoutes = require("./routes/post.route");
 
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true })); // for bcrypt
 const port = process.env.PORT || 5000;
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", limiter, authRoutes);
 app.use("/api/posts", postRoutes);
 
 // Listen
