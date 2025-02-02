@@ -70,7 +70,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-::ng-deep angular-editor-toolbar button i {
+// ::ng-deep angular-editor-toolbar button i {
+//   font-family: FontAwesome !important;
+//   color: black !important;
+// }
+
+angular-editor-toolbar button i {
   font-family: FontAwesome !important;
   color: black !important;
 }
