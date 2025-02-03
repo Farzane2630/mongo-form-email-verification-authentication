@@ -1,1 +1,25 @@
-<p>article {{blog._id}} works!</p>
+<div
+  class="flex flex-col lg:px-48 px-4 py-8 justify-center items-center relative"
+>
+  <p class="font-extrabold text-4xl text-center py-8">{{ blog.title }}</p>
+  <div class="flex justify-start items-center gap-x-4 mb-8">
+    <img
+      [ngSrc]="
+        env + '/' + user.avatar ||
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhWdTnmHCBRfMu359x_TmhZRbvGSTS83quuw&s'
+      "
+      width="50"
+      height="50"
+      class="rounded-full"
+      alt="user-avatar"
+      loading="lazy"
+    />
+    <div class="flex flex-col items-center">
+       <p>{{ blog.author }}</p>
+       <p>{{ blog.publishDate | date }}</p>
+
+      </div>
+  </div>
+  <img [ngSrc]="imageUrl" [alt]="blog.title" width="800" height="500" />
+  <div [innerHTML]="blog.body"></div>
+</div>
