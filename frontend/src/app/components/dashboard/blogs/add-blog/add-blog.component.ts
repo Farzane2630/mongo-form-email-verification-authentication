@@ -50,6 +50,8 @@ export class AddBlogComponent {
   }
 
   submitForm() {
+    // console.log(this.content);
+    
     if (this.blogForm.valid && this.content.valid) {
       const formData: any = new FormData();
 
@@ -61,13 +63,13 @@ export class AddBlogComponent {
         formData.append("image", this.selectedImage, this.selectedImage.name);
 
         this.articleService.postArticle(formData).subscribe({
-          next: (res: any) => console.log(res),
-          error: (error: any) => console.error(error),
+          next: (res: any) => alert(res.message),
+          error: (error: any) => alert(error.error.message),
         });
       }
       this.closeModal();
+    } else {
+      alert("Form is not valid!");
     }
-
-    alert("Form is not valid!");
   }
 }
