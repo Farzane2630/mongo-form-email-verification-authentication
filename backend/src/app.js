@@ -3,7 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const connectToDB = require("./utils/db");
-const limiter = require("../middlewares/limiter")
+const limiter = require("../middlewares/limiter");
 const authRoutes = require("./routes/auth.route");
 const postRoutes = require("./routes/post.route");
 
